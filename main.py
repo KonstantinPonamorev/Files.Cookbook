@@ -15,14 +15,19 @@ def get_data(file_name):
             file.readline()
     return cook_book
 
-data = get_data('recipes.txt')
+# cook_book = get_data('recipes.txt')
 
-def get_shop_list_by_dishes(dishes, person_count=1):
+def get_shop_list_by_dishes(dishes, person_count):
+    cook_book = get_data('recipes.txt')
     shop_list = {}
     for dish in dishes:
-        for ingredient in range(len(data[dish])):
+        for ingredient in cook_book[dish]:
+            if ingredient['ingredient_name'] not in shop_list:
+                shop_list[ingredient['ingredient_name']] = {}
+                shop_list[ingredient['ingredient_name']]['measure'] = ingredient['measure']
+                shop_list[ingredient['ingredient_name']]['quantity'] = int(ingredient['quantity']) * person_count
+            else:
+                shop_list[ingredient['ingredient_name']]['quantity'] += int(ingredient['quantity']) * person_count
+    return shop_list
 
-
-
-
-get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'])
+# get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
