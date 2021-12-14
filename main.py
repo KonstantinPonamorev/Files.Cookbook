@@ -13,6 +13,16 @@ def get_data(file_name):
                 types_dic['measure'] = types[2]
                 cook_book[dish].append(types_dic)
             file.readline()
-    print(cook_book)
+    return cook_book
 
-get_data('recipes.txt')
+data = get_data('recipes.txt')
+
+def get_shop_list_by_dishes(dishes, person_count=1):
+    shop_list = {}
+    for dish in dishes:
+        for ingredient in range(len(data[dish])):
+
+
+
+
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'])
