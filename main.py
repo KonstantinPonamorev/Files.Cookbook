@@ -31,3 +31,14 @@ def get_shop_list_by_dishes(dishes, person_count):
     return shop_list
 
 # get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
+
+def sort_file_by_strings(number_of_file):
+    max_strings = 0
+    file_with_max_strings = 0
+    for number in range(1, int(number_of_file) + 1):
+        with open(f'{number}.txt', encoding='utf-8') as file:
+            if len(file.readlines()) > max_strings:
+                max_strings = len(file.readlines())
+                file_with_max_strings = number
+
+sort_file_by_strings(3)
