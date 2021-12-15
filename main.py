@@ -32,7 +32,6 @@ def get_shop_list_by_dishes(dishes, person_count):
 
 # get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
 
-
 def sort_files_by_string(file_name_1, file_name_2, file_name_3):
     with open(file_name_1, encoding='utf-8') as file_1:
         with open(file_name_2, encoding='utf-8') as file_2:
