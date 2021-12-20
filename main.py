@@ -1,3 +1,6 @@
+from pprint import pprint
+import os
+
 def get_data(file_name):
     cook_book = {}
     with open(file_name, encoding='utf-8') as file:
@@ -32,56 +35,30 @@ def get_shop_list_by_dishes(dishes, person_count):
 
 # get_shop_list_by_dishes(['Запеченный картофель', 'Омлет'], 2)
 
-def sort_files_by_string(file_name_1, file_name_2, file_name_3):
-    with open(file_name_1, encoding='utf-8') as file_1:
-        with open(file_name_2, encoding='utf-8') as file_2:
-            with open(file_name_3, encoding='utf-8') as file_3:
-                sorted_length = ['','','']
-                len_file_1 = len(file_1.readlines())
-                len_file_2 = len(file_2.readlines())
-                len_file_3 = len(file_3.readlines())
-                if len_file_1 < len_file_2 and len_file_1 < len_file_3:
-                    sorted_length[0] = file_name_1
-                    if len_file_2 < len_file_3:
-                        sorted_length[1] = file_name_2
-                        sorted_length[2] = file_name_3
-                    else:
-                        sorted_length[1] = file_name_3
-                        sorted_length[2] = file_name_2
-                elif len_file_2 < len_file_3:
-                    sorted_length[0] = file_name_2
-                    if len_file_1 < len_file_3:
-                        sorted_length[1] = file_name_1
-                        sorted_length[2] = file_name_3
-                    else:
-                        sorted_length[1] = file_name_3
-                        sorted_length[2] = file_name_1
-                else:
-                    sorted_length[0] = file_name_3
-                    if len_file_1 < len_file_2:
-                        sorted_length[1] = file_name_1
-                        sorted_length[2] = file_name_2
-                    else:
-                        sorted_length[1] = file_name_2
-                        sorted_length[2] = file_name_1
-    with open('sortedtext.txt', 'w', encoding='utf-8') as new_file:
-        with open(sorted_length[0], encoding='utf-8') as file_by_string_1:
-            new_file.write(f'{sorted_length[0]}\n')
-            new_file.write(f'{str(len(file_by_string_1.readlines()))}\n')
-            file_by_string_1.seek(0)
-            for line in file_by_string_1:
-                new_file.write(line)
-        with open(sorted_length[1], encoding='utf-8') as file_by_string_2:
-            new_file.write(f'\n{sorted_length[1]}\n')
-            new_file.write(f'{str(len(file_by_string_2.readlines()))}\n')
-            file_by_string_2.seek(0)
-            for line in file_by_string_2:
-                new_file.write(line)
-        with open(sorted_length[2], encoding='utf-8') as file_by_string_3:
-            new_file.write(f'\n{sorted_length[2]}\n')
-            new_file.write(f'{str(len(file_by_string_3.readlines()))}\n')
-            file_by_string_3.seek(0)
-            for line in file_by_string_3:
-                new_file.write(line)
+def sort_file_by_string():
+    directory = 'text/'
+    texts_info = {}
+    for file in os.listdir(directory):
+        if file.endswith('.txt'):
+            text_params = []
+            text_params.append(file)
+            with open(f'{directory}{file}', encoding='utf-8') as f:
+                text_params.append(f'{len(f.readlines())}')
+                f.seek(0)
+                text = []
+                for line in f:
+                    text.append(line)
+                text_params.append(text)
+            texts_info[f'{file}'] = text_params
+        else:
+            ...
+    sorted_dict = sorted(texts_info.items(), key=lambda x: x[1][1])
+    with open('sortedtext.txt', 'w', encoding='utf-8') as new_f:
+        for text in sorted_dict:
+            new_f.write(f'{text[1][0]}\n')
+            new_f.write(f'{text[1][1]}\n')
+            for line in text[1][2]:
+                new_f.write(f'{line}')
+            new_f.write(f'\n\n')
 
-# sort_files_by_string('1.txt', '2.txt', '3.txt')
+# sort_file_by_string()
